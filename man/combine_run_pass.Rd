@@ -4,7 +4,7 @@
 \alias{combine_run_pass}
 \title{Combines running and passing plays}
 \usage{
-combine_run_pass(runs, pass)
+combine_run_pass(runs, pass, games)
 }
 \arguments{
 \item{runs}{the "rush.csv" data frame for the years to use to build the model}
@@ -17,11 +17,15 @@ a data frame containing all rushing and passing plays
 \description{
 The running and passing plays have different formats, so this function puts
 them in the same format and binds them into one data frame. In addition this
-function turns the rushing plays that are sacks into passing plays.
+function turns the rushing plays that are sacks into passing plays. Then the
+next play information is added to the play by play. Also the home team and
+away team is added.
 }
 \examples{
 pass <- readin("pass", 2014)
 rush <- readin("rush", 2014)
-all_plays <- combine_run_pass(rush, pass)
+games <- readin("game", 2014)
+game_info <- fix_games(games)
+all_plays <- combine_run_pass(rush, pass, game_info)
 }
 

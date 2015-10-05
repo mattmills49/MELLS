@@ -34,7 +34,9 @@ game_info <- readin("team-game-statistics", years)
 conf <- readin("conference", years)
 
 epa_model <- expected_points_build(plays[plays$Year != 2014, ], drives[drives$Year != 2014, ])
-all_info <- combine_run_pass(runs, pass)
+game_info <- fix_games(games)
+no_garbage <- combine_run_pass(rush, pass, game_info) %>% remove_garbage
+
 
 
 model_values <- readin_data %>% orangize_data %>% build_underlying_data %>% fit_models
