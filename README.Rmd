@@ -1,6 +1,12 @@
-# Untitled
-Matt Mills  
-October 4, 2015  
+---
+title: "Untitled"
+author: "Matt Mills"
+date: "October 4, 2015"
+output: 
+  html_document:
+    keep_md: TRUE
+  
+---
 
 # MELLS
 
@@ -14,8 +20,7 @@ The goal of this package is to ease the testing of my college football predictio
 
 I expect the structure of the package to be small functions that can be piped together:
 
-
-```r
+```{r, eval = F}
 library(MELLS)
 
 years <- 2001:2014
@@ -33,6 +38,7 @@ all_info <- combine_run_pass(runs, pass)
 
 
 model_values <- readin_data %>% orangize_data %>% build_underlying_data %>% fit_models
+
 ```
 
 This package will also contain some model testing functions and validation results.

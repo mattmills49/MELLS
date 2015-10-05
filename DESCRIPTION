@@ -1,0 +1,18 @@
+Package: MELLS
+Title: Build CFB points scored prediction model
+Version: 0.0.0.9000
+Authors@R: person("Matt", "Mills", email = "mattmills49@gmail.com", role = c("aut", "cre"))
+Description: Build CFB points scored prediction model
+Depends: R (>= 3.1.3)
+License: What license is it under?
+LazyData: true
+Imports: dplyr,
+    tidyr,
+    ggplot2,
+    lme4,
+    readr,
+    magrittr,
+    splines,
+    lubridate,
+    broom,
+    stringr
