@@ -23,7 +23,7 @@ I expect the structure of the package to be small functions that can be piped to
 ```{r, eval = F}
 library(MELLS)
 
-years <- 2001:2014
+years <- 2005:2014
 plays <- readin("play", years)
 teams <- readin("team", years)
 runs <- readin("rush", years)
@@ -34,8 +34,10 @@ game_info <- readin("team-game-statistics", years)
 conf <- readin("conference", years)
 
 epa_model <- expected_points_build(plays[plays$Year != 2014, ], drives[drives$Year != 2014, ])
-game_info <- fix_games(games)
-no_garbage <- combine_run_pass(rush, pass, game_info) %>% remove_garbage
+fixed_games <- fix_games(games)
+drives <- fix_drives(fixed_games, drives)
+model_plays <- combine_run_pass(rush, pass, fixed_games) %>% remove_garbage %>% fix_fcs(teams, conf) %>% add_epa(epa_model)
+
 
 
 
