@@ -36,7 +36,7 @@ conf <- readin("conference", years)
 epa_model <- expected_points_build(plays[plays$Year != 2014, ], drives[drives$Year != 2014, ])
 fixed_games <- fix_games(games)
 drives <- fix_drives(fixed_games, drives)
-model_plays <- combine_run_pass(rush, pass, fixed_games) %>% remove_garbage %>% fix_fcs(teams, conf) %>% add_epa(epa_model)
+model_plays <- combine_run_pass(runs, pass, fixed_games) %>% remove_garbage %>% fix_fcs(teams, conf) %>% add_epa(epa_model)
 
 
 
