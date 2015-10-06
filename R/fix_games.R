@@ -14,7 +14,7 @@ fix_games <- function(games){
   games$Day <- lubridate::wday(games$Date, label = T, abbr = T)
   week_day <- 1:7
   names(week_day) <- c("Tues", "Wed", "Thurs", "Fri", "Sat", "Sun", "Mon")
-  games <- games %>% dplyr::group_by(Year) %>% dplyr::arrange(Date) %>% dplyr::mutate(Week_Day = week_day[Day], Min_Date = min(Date), Days_Since = as.numeric(Date - Min_Date), Week = cut(Days_Since, breaks = c(0, seq(4, 144, by = 7)), include.lowest = T, labels = F)) %>% dplyr::ungroup
-  games$Week <- with(games, ifelse(Week >= 16, ifelse(Year <= 2012, 16, 17), Week))
+  games <- games %>% dplyr::group_by(Year) %>% dplyr::arrange(Date) %>% dplyr::mutate(Week_Day = week_day[Day], Min_Date = min(Date), Days_Since = as.numeric(Date - Min_Date), Week = cut(Days_Since, breaks = c(0, seq(4, 144, by = 7)), include.lowest = T, labels = F)) %>% dplyr::ungroup()
+  games$Week <- ifelse(games$Week >= 16, ifelse(games$Year <= 2012, 16, 17), games$Week)
   return(games)
 }
