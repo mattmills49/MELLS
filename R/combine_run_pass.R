@@ -28,8 +28,10 @@ combine_run_pass <- function(runs, pass, games){
   
   nextplayinfo <- allplays %>% dplyr::select(Game.Code, Play.Number, Period.Number, Offense.Team.Code, Spot, Play.Type) %>% dplyr::mutate(Next.Play.Number = Play.Number - 1) %>% dplyr::rename(Next.Play.Quarter = Period.Number, Next.Offense = Offense.Team.Code, Next.Spot = Spot, Next.Play.Type = Play.Type) %>% dplyr::select(-Play.Number) %>% dplyr::left_join(allplays, ., by = c("Game.Code" = "Game.Code", "Play.Number" = "Next.Play.Number")) %>% dplyr::mutate(Next.Spot = ifelse(Next.Play.Type == "ATTEMPT", 0, Next.Spot))
   
-  all_info <- dplyr::left_join(nextplayinfo, dplyr::select(games, Game.Code, Date, Visit.Team.Code, Home.Team.Code, Site, Year, Week), by = c("Game.Code", "Year")) %>% dplyr::ungroup
-  all_info$Home.Team <- with(all_info, ifelse(Offense.Team.Code == Home.Team.Code, 1, 0))
-  all_info$Visit.Team <- with(all_info, ifelse(Offense.Team.Code == Visit.Team.Code, 1, 0))
-  all_info$Neutral <- with(all_info, ifelse(Site == "NEUTRAL", 1, 0))
+  all_info <- dplyr::left_join(nextplayinfo, dplyr::select(games, Game.Code, Date, Visit.Team.Code, Home.Team.Code, Site, Year, Week), by = c("Game.Code", "Year")) %>% dplyr::ungroup()
+  all_info$Home.Team <- ifelse(all_info$Offense.Team.Code == all_info$Home.Team.Code, 1, 0)
+  all_info$Visit.Team <- ifelse(all_info$Offense.Team.Code == all_info$Visit.Team.Code, 1, 0)
+  all_info$Neutral <- ifelse(all_info$Site == "NEUTRAL", 1, 0)
+  
+  return(all_info)
 }
