@@ -15,7 +15,7 @@
 #' \dontrun{ggplot2::qplot(x = as.numeric(names(epa_values)), y = epa_values, xlab = "Distance From End Zone", ylab = "Expected Points", geom = "line", main = "Expected Points Model Results")}
 
 expected_points_build <- function(plays, drives){
-  pointplays <- dplyr::filter(plays, !is.na(Drive.Play), !(Play.Type %in% c("KICKOFF", "ATTEMPT", "TIMEOUT"))) %>% dplyr::left_join(select(drives, Game.Code, Drive.Number, End.Reason, Year), by = c("Game.Code", "Drive.Number", "Year"))
+  pointplays <- dplyr::filter(plays, !is.na(Drive.Play), !(Play.Type %in% c("KICKOFF", "ATTEMPT", "TIMEOUT"))) %>% dplyr::left_join(dplyr::select(drives, Game.Code, Drive.Number, End.Reason, Year), by = c("Game.Code", "Drive.Number", "Year"))
 
   point_table <- c(0, 0, 3, 0, 0, 0, 0, -2, 6.96)
   names(point_table) <- sort(unique(pointplays$End.Reason))
