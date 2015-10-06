@@ -15,12 +15,11 @@
 
 
 remove_garbage <- function(plays){
-  plays$Garbage <- with(plays,
-    ifelse(Period.Number == 1, ifelse(abs(Offense.Points - Defense.Points) > 28, 1, 0),
-    ifelse(Period.Number == 2, ifelse(abs(Offense.Points - Defense.Points) > 24, 1, 0),
-    ifelse(Period.Number == 3, ifelse(abs(Offense.Points - Defense.Points) > 21, 1, 0),
-    ifelse(Period.Number == 4, ifelse(abs(Offense.Points - Defense.Points) > 16, 1, 0),
-           0)))))
+  plays$Garbage <- ifelse(plays$Period.Number == 1, ifelse(abs(plays$Offense.Points - plays$Defense.Points) > 28, 1, 0),
+    ifelse(plays$Period.Number == 2, ifelse(abs(plays$Offense.Points - plays$Defense.Points) > 24, 1, 0),
+    ifelse(plays$Period.Number == 3, ifelse(abs(plays$Offense.Points - plays$Defense.Points) > 21, 1, 0),
+    ifelse(plays$Period.Number == 4, ifelse(abs(plays$Offense.Points - plays$Defense.Points) > 16, 1, 0),
+           0))))
   garbage_remove <- plays[plays$Garbage == 0, ]
   return(garbage_remove)
 }
