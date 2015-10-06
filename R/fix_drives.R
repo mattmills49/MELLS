@@ -15,6 +15,6 @@
 fix_drives <- function(games, drives){
   drives <- dplyr::left_join(drives, dplyr::select(games, Game.Code, Year, Week, Home.Team.Code, Visit.Team.Code), by = c("Game.Code", "Year"))
   drives$Offense.Team.Code = drives$Team.Code
-  drives$Defense.Team.Code = with(drives, ifelse(Team.Code == Home.Team.Code, Visit.Team.Code, Home.Team.Code))
+  drives$Defense.Team.Code = ifelse(drives$Team.Code == drives$Home.Team.Code, drives$Visit.Team.Code, drives$Home.Team.Code)
   return(drives)
 }
