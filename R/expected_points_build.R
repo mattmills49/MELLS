@@ -25,4 +25,5 @@ expected_points_build <- function(plays, drives){
 
   expected_points <- predict(ep_model, data.frame(Spot = 0:100))
   names(expected_points) <- as.character(0:100)
+  return(expected_points)
 }

@@ -1,14 +1,10 @@
 ---
-title: "Untitled"
-author: "Matt Mills"
-date: "October 4, 2015"
+title: "MELLS"
 output: 
   html_document:
     keep_md: TRUE
   
 ---
-
-# MELLS
 
 Multilevel Expected points added Linear Least Squares
 
@@ -22,6 +18,7 @@ I expect the structure of the package to be small functions that can be piped to
 
 ```{r, eval = F}
 library(MELLS)
+library(magrittr)
 
 years <- 2005:2014
 plays <- readin("play", years)
@@ -37,6 +34,7 @@ epa_model <- expected_points_build(plays[plays$Year != 2014, ], drives[drives$Ye
 fixed_games <- fix_games(games)
 drives <- fix_drives(fixed_games, drives)
 model_plays <- combine_run_pass(runs, pass, fixed_games) %>% remove_garbage %>% fix_fcs(teams, conf) %>% add_epa(epa_model)
+preseaon_vals <- generate_preseason_mlm(model_plays[[1]], model_plays[[2]])
 
 
 
