@@ -27,7 +27,7 @@ generate_preseason_mlm <- function(run_plays, pass_plays){
     dplyr::group_by(Year) %>% 
     dplyr::do(
       lme4::lmer(EPA ~ 1 + factor(Home.Team) + Site + (1 | Offense.Team.Code) + (1 | Defense.Team.Code), data = .) %>% 
-      broom::tidy %>% 
+      broom::tidy() %>% 
       tidyr::spread(group, estimate) %>% 
       dplyr::mutate(Team.Code = as.numeric(level)) %>% 
       dplyr::filter(term == "(Intercept)") %>% 
@@ -44,7 +44,7 @@ generate_preseason_mlm <- function(run_plays, pass_plays){
     dplyr::group_by(Year) %>% 
     dplyr::do(
       lme4::lmer(EPA ~ 1 + factor(Home.Team) + Site + (1 | Offense.Team.Code) + (1 | Defense.Team.Code), data = .) %>% 
-      broom::tidy %>% 
+      broom::tidy() %>% 
       tidyr::spread(group, estimate) %>% 
       dplyr::mutate(Team.Code = as.numeric(level)) %>% 
       dplyr::filter(term == "(Intercept)") %>% 
