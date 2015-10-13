@@ -89,12 +89,8 @@ epa_model &lt;- expected_points_build(plays[plays$Year != 2014, ], drives[drives
 fixed_games &lt;- fix_games(games)
 drives &lt;- fix_drives(fixed_games, drives)
 model_plays &lt;- combine_run_pass(runs, pass, fixed_games) %&gt;% remove_garbage %&gt;% fix_fcs(teams, conf) %&gt;% add_epa(epa_model)
-preseaon_vals &lt;- generate_preseason_mlm(model_plays[[1]], model_plays[[2]])
-
-
-
-
-model_values &lt;- readin_data %&gt;% orangize_data %&gt;% build_underlying_data %&gt;% fit_models</code></pre>
+model_values &lt;- generate_preseason_mlm(run_plays = model_plays[[&quot;run_info&quot;]], pass_plays = model_plays[[&quot;pass_info&quot;]]) %&gt;% add_preseason(run_plays = model_plays[[&quot;run_info&quot;]], pass_plays = model_plays[[&quot;pass_info&quot;]], drives = drives, preseason_vals = .)
+weekly_values &lt;- weekly_values_mlm(model_runs = model_values[[&quot;run_data&quot;]], model_pass = model_values[[&quot;pass_data&quot;]], model_drives = model_values[[&quot;drives_data&quot;]])</code></pre>
 <p>This package will also contain some model testing functions and validation results.</p>
 </div>
 <div id="assumptions" class="section level2">

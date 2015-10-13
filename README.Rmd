@@ -34,12 +34,8 @@ epa_model <- expected_points_build(plays[plays$Year != 2014, ], drives[drives$Ye
 fixed_games <- fix_games(games)
 drives <- fix_drives(fixed_games, drives)
 model_plays <- combine_run_pass(runs, pass, fixed_games) %>% remove_garbage %>% fix_fcs(teams, conf) %>% add_epa(epa_model)
-preseaon_vals <- generate_preseason_mlm(model_plays[[1]], model_plays[[2]])
-
-
-
-
-model_values <- readin_data %>% orangize_data %>% build_underlying_data %>% fit_models
+model_values <- generate_preseason_mlm(run_plays = model_plays[["run_info"]], pass_plays = model_plays[["pass_info"]]) %>% add_preseason(run_plays = model_plays[["run_info"]], pass_plays = model_plays[["pass_info"]], drives = drives, preseason_vals = .)
+weekly_values <- weekly_values_mlm(model_runs = model_values[["run_data"]], model_pass = model_values[["pass_data"]], model_drives = model_values[["drives_data"]])
 
 ```
 
